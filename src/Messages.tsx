@@ -1,4 +1,5 @@
 import { useGetUserMessagesQuery } from "./generated/graphql";
+import { useEffect } from "react";
 
 interface propsInterface {
   username: string;
@@ -7,9 +8,19 @@ interface message {
   body: string;
 }
 function Messages({ username }: propsInterface) {
-  const { loading, error, data } = useGetUserMessagesQuery({
+  const { loading, error, data, refetch } = useGetUserMessagesQuery({
     variables: { username },
   });
+
+  useEffect(
+    function getMessageOn() {
+      async function getMessages() {
+        await refetch({ username: username });
+      }
+      getMessages();
+    },
+    [refetch, username]
+  );
 
   if (loading) return <>Loading...</>;
   if (error) return <>Error : {error} </>;

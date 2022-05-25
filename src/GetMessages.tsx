@@ -24,7 +24,7 @@ function GetMessages() {
           placeholder="Enter username..."
           onChange={handleChange}
         />
-        <button>Find User's Messages!</button>
+        <button >Find User's Messages!</button>
       </form>
       {hasSubmitted && <Messages username={username} />}
     </>
